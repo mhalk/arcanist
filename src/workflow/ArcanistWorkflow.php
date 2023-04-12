@@ -199,6 +199,9 @@ abstract class ArcanistWorkflow extends Phobject {
     $phutil_workflow->setSynopsis($synopses);
 
     $help = $this->getCommandHelp();
+    if (is_null($help)) {
+      $help = '';
+    }
     if (strlen($help)) {
       $phutil_workflow->setHelp($help);
     }
@@ -480,6 +483,9 @@ abstract class ArcanistWorkflow extends Phobject {
       // token-based authentication. Use that instead of all the certificate
       // stuff.
       $token = idx($credentials, 'token');
+      if (is_null($token)) {
+        $token = '';
+      }
       if (strlen($token)) {
         $conduit = $this->getConduit();
 

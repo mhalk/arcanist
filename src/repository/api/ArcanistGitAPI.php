@@ -600,6 +600,10 @@ final class ArcanistGitAPI extends ArcanistRepositoryAPI {
   public function getCanonicalRevisionName($string) {
     $match = null;
 
+    if (is_null($string)) {
+      $string = '';
+    }
+
     if (preg_match('/@([0-9]+)$/', $string, $match)) {
       $stdout = $this->getHashFromFromSVNRevisionNumber($match[1]);
     } else {
@@ -1143,7 +1147,8 @@ final class ArcanistGitAPI extends ArcanistRepositoryAPI {
 
   public function hasLocalCommit($commit) {
     try {
-      if (!$this->getCanonicalRevisionName($commit)) {
+      if (!phutil_nonempty_string($commit) ||
+          !$this->getCanonicalRevisionName($commit)) {
         return false;
       }
     } catch (CommandException $exception) {

@@ -337,7 +337,15 @@ final class ArcanistScriptAndRegexLinter extends ArcanistLinter {
       return array($line + 1, $char + 1);
     }
 
+    if (is_null($match)) {
+      $match = '';
+    }
+
     $line = idx($match, 'line');
+
+    if (is_null($line)) {
+      $line = '';
+    }
     if (strlen($line)) {
       $line = (int)$line;
       if (!$line) {

@@ -12,6 +12,9 @@ final class ArcanistUnitConsoleRenderer extends ArcanistUnitRenderer {
 
     $test_name = $result->getName();
     $test_namespace = $result->getNamespace();
+    if (is_null($test_namespace)) {
+      $test_namespace = '';
+    }
     if (strlen($test_namespace)) {
       $test_name = $test_namespace.'::'.$test_name;
     }
